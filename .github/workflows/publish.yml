@@ -30,6 +30,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - run: pnpm --filter @firemap/shared publish --provenance --access public --no-git-checks
+      - run: pnpm --filter @firemap/shared publish --access public --no-git-checks
 
-      - run: pnpm --filter @firemap/sdk publish --provenance --access public --no-git-checks
+      - run: pnpm --filter @firemap/sdk publish --access public --no-git-checks
