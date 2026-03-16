@@ -1,6 +1,6 @@
 {
   "name": "@firemap/sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Type-safe Firestore ODM with decorators, validation, and code generation",
   "license": "MIT",
   "type": "module",
@@ -49,9 +49,7 @@
       "optional": true
     }
   },
-  "dependencies": {
-    "@firemap/shared": "workspace:*"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/node": "^25.3.2",
     "firebase": "^11.0.0",
