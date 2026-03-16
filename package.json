@@ -1,0 +1,25 @@
+{
+  "name": "firemap",
+  "private": true,
+  "packageManager": "pnpm@9.15.4",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "test": "turbo run test",
+    "test:coverage": "turbo run test:coverage",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@vitest/coverage-v8": "4.0.18",
+    "eslint": "^10.0.2",
+    "prettier": "^3.5.0",
+    "turbo": "^2.4.0",
+    "typescript-eslint": "^8.56.1",
+    "vitest": "4.0.18"
+  }
+}
