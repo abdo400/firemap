@@ -78,21 +78,51 @@ class Comment extends BaseModel { ... }
 
 ### Denormalization
 
+Keeping data in sync across collections is the hardest part of Firestore data modeling. Firemap makes it declarative: mark the source fields with `@SyncTo` and the target fields with `@DenormalizedFrom`, and the CLI generates the Cloud Functions that handle the rest.
+
+**Real-world example: syncing author info to posts**
+
 ```typescript
+import { Collection, Field, Required, SyncTo, BaseModel } from '@firemap/sdk';
+
 @Collection('users')
 class User extends BaseModel {
+  @Required
   @SyncTo('posts', { field: 'authorName', sourceField: 'name' })
   @Field({ type: 'string' })
   name!: string;
+
+  @SyncTo('posts', { field: 'authorAvatar', sourceField: 'avatarUrl' })
+  @Field({ type: 'string' })
+  avatarUrl!: string;
 }
+```
+
+```typescript
+import { Collection, Field, DenormalizedFrom, BaseModel } from '@firemap/sdk';
 
 @Collection('posts')
 class Post extends BaseModel {
-  @DenormalizedFrom('users', { fields: ['name'] })
+  @Required
+  @Field({ type: 'string' })
+  title!: string;
+
+  @Field({ type: 'reference' })
+  authorRef!: string;
+
+  @DenormalizedFrom('users', { fields: ['name', 'avatarUrl'] })
   @Field({ type: 'string' })
   authorName!: string;
+
+  @DenormalizedFrom('users', { fields: ['name', 'avatarUrl'] })
+  @Field({ type: 'string' })
+  authorAvatar!: string;
 }
 ```
+
+**What happens at runtime:** When a user updates their `name` or `avatarUrl`, the generated Cloud Function (via `@firemap/cli`) automatically finds every post by that user and batch-updates the denormalized fields. No manual sync code needed -- your posts always show the latest author name and avatar.
+
+You can chain multiple `@SyncTo` decorators on a single field to sync it to different collections, and a target model can receive denormalized data from multiple sources.
 
 ### Indexes & Soft Delete
 
