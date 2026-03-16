@@ -32,4 +32,7 @@ export type {
   RulesSpec,
   IdStrategy,
   PrefillConfig,
+  FiremapConfig,
 } from "@firemap/shared";
+
+export { DEFAULT_CONFIG } from "@firemap/shared";
